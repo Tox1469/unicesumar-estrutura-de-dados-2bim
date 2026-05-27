@@ -1,6 +1,6 @@
 # Estruturas de Dados - 2BIM
 
-**Integrantes:** Luis Boratto, Igor Palliser
+**Integrantes:** Luis Boratto, Igor Schiniegoski Palliser
 
 ---
 
