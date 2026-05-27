@@ -29,3 +29,18 @@ Implementacoes com lista encadeada simples:
 
 ### Parte 5 - Playlist circular
 Playlist de musicas usando lista circular duplamente encadeada. Tem navegacao pra frente e pra tras, exibicao de todas as musicas e controle pra nao entrar em loop infinito na hora de percorrer.
+
+---
+
+## Atividade 3 - Tabela Hash
+
+Dicionario de palavras usando tabela hash com tratamento de colisoes por lista encadeada.
+
+Funcionalidades:
+- inserir palavra e definicao (se a palavra ja existir, so atualiza a definicao)
+- buscar palavra e mostrar a definicao
+- remover palavra
+- exibir a tabela completa com todos os buckets
+- mostrar estatisticas: quantidade de elementos, colisoes, fator de carga e tamanho da maior lista
+
+A funcao hash soma os valores ascii de cada caractere da palavra e faz o modulo pelo tamanho da tabela. Colisoes sao resolvidas inserindo o novo elemento no inicio da lista encadeada do bucket.
