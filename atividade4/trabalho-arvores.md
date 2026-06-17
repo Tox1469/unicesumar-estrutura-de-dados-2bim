@@ -6,7 +6,7 @@
 
 ## Introdução
 
-Quando a gente começa a estudar árvores, normalmente para na árvore binária de busca comum. O problema é que essa estrutura, sozinha, não garante que vai continuar eficiente. Se os dados forem inseridos já mais ou menos ordenados, a árvore "degenera" e vira praticamente uma lista ligada, perdendo toda a vantagem do tempo logarítmico. É justamente para resolver isso que existem as árvores balanceadas e as variações que estudamos neste trabalho.
+Quando a gente começa a estudar árvores, normalmente para na árvore binária de busca comum. O problema é que essa estrutura, sozinha, não garante que vai continuar eficiente. Se os dados forem inseridos já mais ou menos ordenados, a árvore "degenera" e vira praticamente uma lista ligada, perdendo toda a vantagem do tempo logaritmico. É justamente pra resolver isso que existem as árvores balanceadas e as variações que estudamos neste trabalho.
 
 Aqui a gente trata de três estruturas: a árvore AVL, a árvore Rubro-Negra (Red-Black) e a árvore N-ária. As duas primeiras resolvem o problema do balanceamento de maneiras diferentes, e a terceira muda a ideia de quantos filhos um nó pode ter.
 
@@ -16,7 +16,7 @@ Aqui a gente trata de três estruturas: a árvore AVL, a árvore Rubro-Negra (Re
 
 ### Árvore AVL
 
-**Conceito.** A AVL é uma árvore binária de busca que se mantém balanceada de forma automática. O nome vem dos três pesquisadores que a propuseram em 1962 (Adelson-Velsky e Landis). A regra que ela segue é simples de enunciar: para qualquer nó, a diferença de altura entre a subárvore da esquerda e a da direita nunca pode ser maior que 1.
+**Conceito.** A AVL é uma árvore binária de busca que se mantém balanceada de forma automática. O nome vem dos dois pesquisadores russos que a propuseram em 1962 (Adelson-Velsky e Landis). A regra que ela segue é simples de enunciar: para qualquer nó, a diferença de altura entre a subárvore da esquerda e a da direita nunca pode ser maior que 1.
 
 Essa diferença tem até um nome, o **fator de balanceamento**, calculado como `altura(esquerda) - altura(direita)`. Enquanto esse valor fica em -1, 0 ou +1, está tudo certo. Quando uma inserção ou remoção faz o fator passar disso, a árvore aplica rotações para se ajustar de novo (as rotações estão explicadas na Parte 2).
 
@@ -35,27 +35,27 @@ Essa diferença tem até um nome, o **fator de balanceamento**, calculado como `
 - Justamente por ser rígida, ela precisa fazer rotações com mais frequência. Isso deixa a inserção e a remoção um pouco mais custosas.
 - O código fica mais trabalhoso de implementar do que o de uma árvore binária comum.
 
-**Exemplo ilustrado.** Se a gente inserir as chaves 10, 20 e 30 nessa ordem numa árvore binária comum, ela "cai" toda para a direita:
+**Exemplo ilustrado.** Se a gente inserir as chaves 15, 25 e 40 nessa ordem numa árvore binária comum, ela "cai" toda para a direita:
 
 ```
-   10
+   15
      \
-      20
+      25
         \
-         30
+         40
 ```
 
-A AVL percebe que o nó 10 ficou com fator de balanceamento -2 (desbalanceado) e faz uma rotação. O resultado é uma árvore equilibrada:
+A AVL percebe que o nó 15 ficou com fator de balanceamento -2 (desbalanceado) e faz uma rotação. O resultado é uma árvore equilibrada:
 
 ```
-      20
+      25
      /  \
-   10    30
+   15    40
 ```
 
 ### Árvore Rubro-Negra (Red-Black)
 
-**Conceito.** A Rubro-Negra também é uma árvore binária de busca que se balanceia sozinha, mas usa uma ideia diferente da AVL: em vez de controlar altura diretamente, ela pinta cada nó de **vermelho** ou **preto** e segue um conjunto de regras de cor. Mantendo essas cores em ordem, ela garante que o caminho mais longo da raiz até uma folha nunca seja mais que o dobro do caminho mais curto. Ou seja, ela não fica perfeitamente balanceada como a AVL, mas fica "balanceada o suficiente".
+**Conceito.** A Rubro-Negra também é uma árvore binária de busca que se balanceia sozinha, mas usa uma ideia diferente da AVL: em vez de controlar altura diretamente, ela pinta cada nó de **vermelho** ou **preto** e segue um conjunto de regras de cor. Mantendo essas cores em ordem, ela garante que o caminho mais longo da raiz até uma folha nunca seja mais que o dobro do caminho mais curto. Ou seja, ela nao fica perfeitamente balanceada como a AVL, mas fica "balanceada o suficiente".
 
 **Regras de coloração (as propriedades).**
 1. Todo nó é vermelho ou preto.
@@ -83,9 +83,9 @@ São essas cinco regras que mantêm o equilíbrio. Quando uma inserção quebra 
 **Exemplo ilustrado.** Uma Rubro-Negra simples, com a raiz preta e os filhos vermelhos (o que respeita todas as regras):
 
 ```
-        (13) preto
+        (22) preto
         /        \
-   (8) verm    (17) verm
+   (11) verm    (35) verm
 ```
 
 Aqui a "altura negra" é a mesma para qualquer caminho, e não existem dois nós vermelhos em sequência, então a árvore está válida.
@@ -96,12 +96,12 @@ Aqui a "altura negra" é a mesma para qualquer caminho, e não existem dois nós
 
 **Diferenças em relação à árvore binária.**
 - Na binária, o limite é fixo em dois filhos por nó. Na N-ária, esse limite é maior (ou nem existe um limite fixo).
-- A binária organiza tudo em "menor à esquerda, maior à direita". A N-ária normalmente não tem essa ordenação automática, ela serve mais para representar hierarquias e relações de "pai e filhos".
+- A binaria organiza tudo em "menor à esquerda, maior à direita". A N-ária normalmente nao tem essa ordenação automática, ela serve mais pra representar hierarquias e relações de "pai e filhos".
 - Por causa disso, a binária é mais voltada para busca ordenada, e a N-ária para modelar estruturas que têm muitos ramos.
 
 **Aplicações práticas.**
 - Sistema de arquivos: uma pasta pode conter várias subpastas e arquivos, então é uma hierarquia N-ária natural.
-- O DOM de uma página HTML: cada elemento pode ter vários elementos filhos dentro dele.
+- O DOM de uma pagina HTML: cada elemento pode ter varios elementos filhos dentro dele.
 - Organogramas de empresa, árvores genealógicas e menus de aplicativos, que também são hierarquias com vários ramos.
 
 **Exemplo ilustrado.** Uma pasta com três itens dentro, e uma dessas pastas com mais arquivos:
@@ -124,22 +124,22 @@ As rotações são o coração do balanceamento. A ideia geral é sempre a mesma
 
 Acontece quando a árvore pende demais para a esquerda. A gente "puxa" o nó de cima para a direita.
 
-Antes (o nó 30 está desbalanceado para a esquerda):
+Antes (o nó 50 está desbalanceado para a esquerda):
 
 ```
-        30
+        50
        /
-     20
+     35
     /
-  10
+  20
 ```
 
-Depois da rotação à direita em 30:
+Depois da rotação à direita em 50:
 
 ```
-      20
+      35
      /  \
-   10    30
+   20    50
 ```
 
 ### Rotação simples à esquerda (caso direita-direita)
@@ -149,19 +149,19 @@ Depois da rotação à direita em 30:
 Antes:
 
 ```
-  10
+  20
     \
-     20
+     45
        \
-        30
+        60
 ```
 
-Depois da rotação à esquerda em 10:
+Depois da rotação à esquerda em 20:
 
 ```
-      20
+      45
      /  \
-   10    30
+   20    60
 ```
 
 ### Rotação dupla esquerda-direita (LR)
@@ -171,29 +171,29 @@ Esse caso aparece quando o desbalanceamento está "torto": o problema vem da sub
 Antes:
 
 ```
-      30
+      60
      /
-   10
+   40
      \
-      20
+      50
 ```
 
-Passo 1 – rotação à esquerda em 10:
+Passo 1 – rotação à esquerda em 40:
 
 ```
-      30
+      60
      /
-   20
+   50
    /
- 10
+ 40
 ```
 
-Passo 2 – rotação à direita em 30:
+Passo 2 – rotação à direita em 60:
 
 ```
-      20
+      50
      /  \
-   10    30
+   40    60
 ```
 
 ### Rotação dupla direita-esquerda (RL)
@@ -203,29 +203,29 @@ Passo 2 – rotação à direita em 30:
 Antes:
 
 ```
-  10
+  40
     \
-     30
+     65
     /
-  20
+  55
 ```
 
-Passo 1 – rotação à direita em 30:
+Passo 1 – rotação à direita em 65:
 
 ```
-  10
+  40
     \
-     20
+     55
        \
-        30
+        65
 ```
 
-Passo 2 – rotação à esquerda em 10:
+Passo 2 – rotação à esquerda em 40:
 
 ```
-      20
+      55
      /  \
-   10    30
+   40    65
 ```
 
 ### Espelhamento / inversão da árvore
@@ -235,21 +235,21 @@ Inverter (ou espelhar) uma árvore é trocar de lugar a subárvore esquerda com 
 Antes:
 
 ```
-        4
+        40
        / \
-      2   6
-     / \  / \
-    1  3 5  7
+      20   60
+     / \   / \
+    10 30 50 70
 ```
 
 Depois do espelhamento (cada par esquerda/direita foi trocado):
 
 ```
-        4
+        40
        / \
-      6   2
-     / \  / \
-    7  5 3  1
+      60   20
+     / \   / \
+    70 50 30 10
 ```
 
 Repare que a estrutura continua sendo uma árvore válida, só que "de trás para frente". Diferente das rotações, o espelhamento não tem a ver com balanceamento: ele muda a ordem dos dados de propósito.
@@ -264,11 +264,11 @@ Todo banco de dados relacional precisa achar registros rápido. Imagine uma tabe
 
 **Qual árvore se encaixa melhor e por quê.** Para esse cenário, uma árvore balanceada (do tipo Rubro-Negra, ou a sua "prima" usada em disco, a B-Tree) é a melhor escolha. A justificativa, olhando os três pontos pedidos:
 
-- **Desempenho:** um índice é consultado o tempo todo, mas também recebe inserções e remoções conforme os dados mudam. A Rubro-Negra garante O(log n) tanto na busca quanto na atualização, e gasta menos rotações que a AVL nas inserções. Isso evita que o índice fique lento quando muitos registros são adicionados de uma vez.
+- **Desempenho:** um índice é consultado o tempo todo, mas também recebe inserções e remoções conforme os dados mudam. A Rubro-Negra garante O(log n) tanto na busca quanto na atualização, e gasta menos rotações que a AVL nas inserções. Isso evita que o indice fique lento quando muitos registros sao adicionados de uma vez.
 
 - **Organização dos dados:** como é uma árvore de busca, os dados ficam ordenados pela chave. Isso ajuda não só na busca exata, mas também em consultas por faixa (por exemplo, "todos os clientes cadastrados entre duas datas"), que podem ser respondidas percorrendo a árvore em ordem.
 
-- **Operações realizadas pelo sistema:** o banco faz muitas inserções, remoções e buscas misturadas. Uma AVL seria ótima se fosse quase só busca, mas como há bastante escrita, a Rubro-Negra dá um equilíbrio melhor entre o custo de manter a árvore organizada e o custo de consultá-la. Não é à toa que estruturas desse tipo são as usadas de verdade em bancos de dados e em coleções ordenadas de várias linguagens de programação.
+- **Operações realizadas pelo sistema:** o banco faz muitas inserções, remoções e buscas misturadas. Uma AVL seria ótima se fosse quase só busca, mas como há bastante escrita, a Rubro-Negra dá um equilíbrio melhor entre o custo de manter a árvore organizada e o custo de consultá-la. Não é a toa que estruturas desse tipo são as usadas de verdade em bancos de dados e em coleções ordenadas de várias linguagens de programação.
 
 ---
 
@@ -284,7 +284,7 @@ Todo banco de dados relacional precisa achar registros rápido. Imagine uma tabe
 
 ## Conclusão
 
-Estudando as três estruturas, dá pra perceber que não existe "a melhor árvore", e sim a mais adequada para cada situação. A AVL brilha quando o que mais importa é a velocidade de busca, porque o balanceamento rígido a mantém bem baixa. A Rubro-Negra abre mão de um pouco desse balanceamento para gastar menos esforço nas inserções e remoções, o que a torna a queridinha das aplicações reais, como índices de banco de dados. Já a N-ária resolve um problema totalmente diferente: representar hierarquias em que um elemento pode ter vários filhos, como pastas dentro de pastas. Entender essas diferenças ajuda a escolher a estrutura certa na hora de resolver um problema de verdade.
+Estudando as três estruturas, dá pra perceber que não existe "a melhor árvore", e sim a mais adequada para cada situação. A AVL brilha quando o que mais importa é a velocidade de busca, porque o balanceamento rígido a mantém bem baixa. A Rubro-Negra abre mão de um pouco desse balanceamento para gastar menos esforço nas inserções e remoções, o que a torna a queridinha das aplicações reais, como índices de banco de dados. Já a N-ária resolve um problema totalmente diferente: representar hierarquias em que um elemento pode ter vários filhos, como pastas dentro de pastas. Entender essas diferencas ajuda a escolher a estrutura certa na hora de resolver um problema de verdade.
 
 ---
 
