@@ -99,6 +99,16 @@ Aqui a "altura negra" é a mesma para qualquer caminho, e não existem dois nós
 - A binaria organiza tudo em "menor à esquerda, maior à direita". A N-ária normalmente nao tem essa ordenação automática, ela serve mais pra representar hierarquias e relações de "pai e filhos".
 - Por causa disso, a binária é mais voltada para busca ordenada, e a N-ária para modelar estruturas que têm muitos ramos.
 
+**Vantagens.**
+- Representa de forma natural as hierarquias em que um elemento tem vários filhos, coisa que a árvore binária não dá conta.
+- É flexível: o número de filhos pode variar de um nó para outro.
+- Em variações balanceadas (como a árvore B, muito usada em banco de dados), funciona muito bem para guardar grandes volumes de dados.
+
+**Desvantagens.**
+- Na versão simples, nao tem balanceamento nem ordenação garantidos, então a busca pode ficar lenta.
+- Costuma gastar mais memória, porque cada nó precisa guardar uma lista de filhos.
+- Implementar as operações é mais trabalhoso do que numa binária, que só tem dois lados pra cuidar.
+
 **Aplicações práticas.**
 - Sistema de arquivos: uma pasta pode conter várias subpastas e arquivos, então é uma hierarquia N-ária natural.
 - O DOM de uma pagina HTML: cada elemento pode ter varios elementos filhos dentro dele.
@@ -276,9 +286,12 @@ Todo banco de dados relacional precisa achar registros rápido. Imagine uma tabe
 
 | Estrutura | Nº Máximo de Filhos | Balanceamento | Complexidade de Busca | Complexidade de Inserção | Vantagem Principal | Desvantagem Principal | Exemplo de Aplicação |
 |---|---|---|---|---|---|---|---|
+| **BST (binária de busca comum)** | 2 | Não tem balanceamento automático; pode degenerar dependendo da ordem de inserção | O(log n) no melhor caso, O(n) no pior | O(log n) no melhor caso, O(n) no pior | Simples de entender e implementar | Se ficar desbalanceada, vira quase uma lista e perde o desempenho | Buscas básicas e base para as árvores balanceadas |
 | **AVL** | 2 | Sim, automático e rígido (fator de balanceamento sempre entre -1 e +1, corrigido por rotações) | O(log n) | O(log n) | Balanceamento rígido deixa a árvore baixa, então a busca é muito rápida | Faz mais rotações, então inserir e remover sai mais caro | Sistemas com muitas buscas e poucas alterações, como dicionários em memória |
 | **Rubro-Negra** | 2 | Sim, automático e mais flexível (regras de cor, corrigidas por recoloração e rotações) | O(log n) | O(log n) | Bom equilíbrio entre busca e atualização, com menos rotações | A árvore pode ficar um pouco mais alta que a AVL, e o código é complexo | Índices de banco de dados e coleções ordenadas de bibliotecas (ex.: TreeMap em Java) |
-| **N-ária** | N (vários por nó) | Não tem balanceamento automático por padrão | Depende da implementação (pode chegar a O(n) se não for ordenada) | Depende da implementação | Representa hierarquias com muitos ramos de forma natural | Sem ordenação/balanceamento garantidos, a busca pode ficar lenta | Sistema de arquivos, DOM de páginas HTML, organogramas |
+| **N-ária** | N (vários por nó) | Pode ter ou não, dependendo da variação (a árvore B, por exemplo, é balanceada) | Depende da implementação (O(log n) se for balanceada, até O(n) se não for) | Depende da implementação | Representa hierarquias com muitos ramos de forma natural | Sem ordenação/balanceamento garantidos, a busca pode ficar lenta | Sistema de arquivos, DOM de páginas HTML, organogramas |
+
+**Lendo a tabela.** Dá pra perceber um padrão: as três primeiras são binárias (no máximo dois filhos) e só mudam no jeito de se manter balanceadas. A BST é a mais simples, mas é a única que pode estragar o desempenho e cair para O(n) se os dados chegarem numa ordem ruim. A AVL e a Rubro-Negra resolvem isso e garantem O(log n) sempre, sendo a AVL melhor para quem busca muito e a Rubro-Negra melhor para quem também insere bastante. A N-ária fica de fora dessa disputa porque resolve outro tipo de problema: hierarquias com muitos filhos por nó.
 
 ---
 
